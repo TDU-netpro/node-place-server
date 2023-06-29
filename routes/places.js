@@ -1,5 +1,5 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
 router.get('/', function (req, res, next) {
   res.send(req.app.get('grids') || {})
@@ -24,6 +24,7 @@ router.put('/', function (req, res, next) {
   if (!grids[x]) grids[x] = {}
   grids[x][y] = color
   req.app.set('grids', grids)
+  req.io.emit('place', { x, y, color })
 
   res.send('received')
 })
