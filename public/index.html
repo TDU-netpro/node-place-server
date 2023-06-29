@@ -12,7 +12,6 @@
     import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
 
     window.onload = (e) => {
-      console.log('ページが完全に読み込まれました')
       const $canvas = document.getElementById('main-canvas')
 
       fetch('http://localhost:3000/place')
@@ -26,6 +25,9 @@
         socket.on('place', (id, msg) => {
           console.log(msg, id)
         })
+      })
+      socket.on('place', (id, msg) => {
+        console.log(msg, id)
       })
     }
   </script>
