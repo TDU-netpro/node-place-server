@@ -13,6 +13,7 @@
 
     window.onload = (e) => {
       const $canvas = document.getElementById('main-canvas')
+      const ctx = $canvas.getContext('2d')
 
       fetch('http://localhost:3000/place')
         .then((res) => res.json())
@@ -26,8 +27,9 @@
           console.log(msg, id)
         })
       })
-      socket.on('place', (id, msg) => {
-        console.log(msg, id)
+      socket.on('place', (msg) => {
+        console.log(msg)
+        ctx.fillRect(Number(msg.x) * 10, Number(msg.y) * 10, 10, 10)
       })
     }
   </script>
