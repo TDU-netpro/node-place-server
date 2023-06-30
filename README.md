@@ -9,7 +9,8 @@ npm start
 
 ## server
 
-app.js
+- app.js
+- rourtes/places.js
 
 ## client
 
