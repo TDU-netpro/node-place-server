@@ -7,6 +7,6 @@ const maekUrl = (x, y, color) => `${host}/place?x=${x}&y=${y}&color=${color}`
 const options = { method: 'PUT' }
 
 for (let i = 0; i < 200; i++) {
-  const color = 'blue'
+  const color = 'purple'
   fetch(maekUrl(i, i, color), options)
 }
