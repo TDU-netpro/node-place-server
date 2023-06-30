@@ -6,6 +6,7 @@
 
   <body>
     <h1 class="text-3xl font-bold underline">place app</h1>
+    <p>hello</p>
     <canvas id="main-canvas" width="1000" height="1000" />
   </body>
   <script type="module">
@@ -42,6 +43,39 @@
         console.log(msg)
         ctx.fillStyle = msg.color
         ctx.fillRect(Number(msg.x) * 10, Number(msg.y) * 10, 10, 10)
+      })
+      function placeApi(x, y, color) {
+        fetch(
+          `${host}/place?x=${x}&y=${y}&color=${encodeURIComponent(color)}`,
+          { method: 'PUT' }
+        )
+      }
+
+      let prev = { x: 0, y: 0 }
+      $canvas.addEventListener('mousedown', (e) => {
+        prev = { x: e.offsetX, y: e.offsetY }
+      })
+      $canvas.addEventListener('mouseup', (e) => {
+        const cur = { x: e.offsetX, y: e.offsetY }
+      })
+
+      $canvas.addEventListener('mousemove', (e) => {
+        console.log(e)
+        const x = Math.floor(e.offsetX / 10)
+        const y = Math.floor(e.offsetY / 10)
+        console.log({ x, y })
+        placeApi(x, y, '#000000')
+      })
+
+      $canvas.addEventListener('click', (e) => {
+        console.log(e)
+        const x = Math.floor(e.offsetX / 10)
+        const y = Math.floor(e.offsetY / 10)
+        console.log({ x, y })
+        placeApi(x + 2, y, 'blue')
+        placeApi(x - 2, y, 'blue')
+        placeApi(x, y - 2, 'blue')
+        placeApi(x, y + 2, 'blue')
       })
     }
   </script>
