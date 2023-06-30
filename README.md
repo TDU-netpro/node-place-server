@@ -1,4 +1,11 @@
 # place app
+## setup
+
+```sh
+npm i
+# start
+npm start
+```
 
 ## server
 
