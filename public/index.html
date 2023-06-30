@@ -11,32 +11,32 @@
   <script type="module">
     import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
     const host = 'https://dccb-133-14-221-203.ngrok-free.app'
+    const range = (n) => [...Array(n).keys()]
+    const size = 1000
 
     window.onload = (e) => {
       const $canvas = document.getElementById('main-canvas')
       const ctx = $canvas.getContext('2d')
-      const size = 100
 
-      const range = (n) => [...Array(n).keys()]
-      fetch(`${host}/place`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          for (const x in range(100)) {
-            for (const y in range(100)) {
-              if (data[x] && data[x][y]) {
-                ctx.fillStyle = data[x][y]
-                ctx.fillRect(Number(x) * 10, Number(y) * 10, 10, 10)
-              }
+      async function fetchPlace() {
+        const res = await fetch(`${host}/place`)
+        const data = await res.json()
+
+        for (const x in range(size)) {
+          for (const y in range(size)) {
+            if (data[x] && data[x][y]) {
+              ctx.fillStyle = data[x][y]
+              ctx.fillRect(Number(x) * 10, Number(y) * 10, 10, 10)
             }
           }
-        })
+        }
+      }
+
+      fetchPlace()
 
       const socket = io(host)
       socket.on('connection', (socket) => {
-        socket.on('place', (id, msg) => {
-          console.log(msg, id)
-        })
+        console.log(`conencted ${host}`)
       })
       socket.on('place', (msg) => {
         console.log(msg)
