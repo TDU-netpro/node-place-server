@@ -9,7 +9,4 @@ const options = { method: 'PUT' }
 for (let i = 0; i < 200; i++) {
   const color = 'blue'
   fetch(maekUrl(i, i, color), options)
-    .then((res) => res.json())
-    .then((json) => console.log(json))
-    .catch((err) => console.error('error:' + err))
 }
